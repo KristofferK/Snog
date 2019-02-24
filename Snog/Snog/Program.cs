@@ -44,7 +44,7 @@ namespace Snog
 
     class Token
     {
-        enum Symbols
+        enum Symbol
         {
             START, END, ID, PRINT, INTEGER
         }

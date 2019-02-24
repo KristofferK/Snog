@@ -22,8 +22,8 @@ namespace Snog
             UDSKRIV $malou_vægt
             UDSKRIV $malou_udseende
 
-            // Ikke tilladt, da $malou_udseende er et HELTAL.
-            REDIGER $malou_udseende = 9.5
+            // Ville ikke være tilladt, da $malou_udseende er et HELTAL.
+            // REDIGER $malou_udseende = 9.5
 
             UDSKRIV $malou_udseende
 
@@ -47,8 +47,8 @@ namespace Snog
             var interpreter = new SnogInterpreter();
             interpreter.Interpret(tokens);
 
-            Console.WriteLine("\n\nPython");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\nPython");
+            Console.ForegroundColor = interpreter.PythonString.Contains("#") ? ConsoleColor.Red : ConsoleColor.Yellow;
             Console.WriteLine(interpreter.PythonString);
         }
     }

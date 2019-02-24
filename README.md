@@ -1,2 +1,2 @@
 # Snog
-Simple programming language
+Lille programmeringssprog

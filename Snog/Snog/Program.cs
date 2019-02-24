@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Snog
 {
@@ -7,7 +8,7 @@ namespace Snog
         static void Main(string[] args)
         {
             string program = @"
-            ESKETIT,
+            ESKETIT
 
             SÆT HELTAL $a = 10
             UDSKRIV $a
@@ -38,15 +39,33 @@ namespace Snog
 
         public List<Token> GetTokens()
         {
+            var lines = Program.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
+            {
+
+            }
             return new List<Token>();
         }
     }
 
     class Token
     {
-        enum Symbol
+        public enum Symbols
         {
             START, END, ID, PRINT, INTEGER
+        }
+
+        public Symbols Symbol { get; set; }
+        public string Value { get; set; }
+
+        public Token(Symbols symbol): this(symbol, null)
+        {
+        }
+
+        public Token(Symbols symbol, string value)
+        {
+            Symbol = symbol;
+            Value = value;
         }
     }
 }

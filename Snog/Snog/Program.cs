@@ -43,7 +43,12 @@ namespace Snog
 
             Console.WriteLine("\n\nStarter interpreter");
 
-            new SnogInterpreter().Interpret(tokens);
+            var interpreter = new SnogInterpreter();
+            interpreter.Interpret(tokens);
+
+            Console.WriteLine("\n\nPython");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(interpreter.PythonString);
         }
     }
 
@@ -59,6 +64,8 @@ namespace Snog
         private bool hasStarted;
         private bool hasEnded;
         private string errorMessage;
+
+        public string PythonString { get; private set; }
 
         public void Interpret(IEnumerable<Token> tokens)
         {
@@ -89,11 +96,13 @@ namespace Snog
                 else if (token.Symbol == Token.Symbols.INTEGER_SET)
                 {
                     symboltable[token.Value] = new SymbolEntry() { Value = token.Value2, Type = typeof(int) };
+                    PythonString += $"{token.Value} = {token.Value2}\n";
                 }
 
                 else if (token.Symbol == Token.Symbols.FLOAT_SET)
                 {
                     symboltable[token.Value] = new SymbolEntry() { Value = token.Value2, Type = typeof(float) };
+                    PythonString += $"{token.Value} = {token.Value2}\n";
                 }
 
                 else if (token.Symbol == Token.Symbols.FLOAT_EDIT)
@@ -109,6 +118,7 @@ namespace Snog
                         break;
                     }
                     symboltable[token.Value] = new SymbolEntry() { Value = token.Value2, Type = typeof(float) };
+                    PythonString += $"{token.Value} = {token.Value2}\n";
                 }
 
                 else if (token.Symbol == Token.Symbols.INTEGER_EDIT)
@@ -120,6 +130,7 @@ namespace Snog
                     }
                     // Opdater uden at ændre datatypen, da floats godt må indeholde ints
                     symboltable[token.Value].Value = token.Value2;
+                    PythonString += $"{token.Value} = {token.Value2}\n";
                 }
 
                 else if (token.Symbol == Token.Symbols.PRINT)
@@ -130,6 +141,7 @@ namespace Snog
                         break;
                     }
                     Console.WriteLine(symboltable[token.Value].Value);
+                    PythonString += $"print({token.Value})\n";
                 }
 
                 else
@@ -163,6 +175,7 @@ namespace Snog
             hasStarted = false;
             hasEnded = true;
             errorMessage = null;
+            PythonString = "";
         }
     }
 

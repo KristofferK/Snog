@@ -1,0 +1,2 @@
+# Snog
+Simple programming language

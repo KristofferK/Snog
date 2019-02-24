@@ -16,7 +16,10 @@ namespace Snog
             SÆT DECIMALTAL $malou_vægt = 7.5
             SÆT HELTAL $malou_udseende = 10
 
-            REDIGER $malou_alder = 5
+            REDIGER $malou_alder = 5.75
+
+            // Følgende bliver optimeret væk, da det er den eksisterende værdi
+            REDIGER $malou_udseende = 10
 
             UDSKRIV $malou_alder
             UDSKRIV $malou_vægt
@@ -24,8 +27,7 @@ namespace Snog
 
             // Ville ikke være tilladt, da $malou_udseende er et HELTAL.
             // REDIGER $malou_udseende = 9.5
-
-            UDSKRIV $malou_udseende
+            // UDSKRIV $malou_udseende
 
             SKRRT SKRRT";
 
@@ -118,8 +120,11 @@ namespace Snog
                         errorMessage = "Kan ikke redigere variabel $" + token.Value + " af typen integer til en float værdi";
                         break;
                     }
-                    symboltable[token.Value] = new SymbolEntry() { Value = token.Value2, Type = typeof(float) };
-                    PythonString += $"{token.Value} = {token.Value2}\n";
+                    if (symboltable[token.Value].Value != token.Value2)
+                    {
+                        symboltable[token.Value].Value = token.Value2;
+                        PythonString += $"{token.Value} = {token.Value2}\n";
+                    }
                 }
 
                 else if (token.Symbol == Token.Symbols.INTEGER_EDIT)
@@ -129,9 +134,12 @@ namespace Snog
                         errorMessage = "Kan ikke redigere den udefinerede variabel $" + token.Value;
                         break;
                     }
-                    // Opdater uden at ændre datatypen, da floats godt må indeholde ints
-                    symboltable[token.Value].Value = token.Value2;
-                    PythonString += $"{token.Value} = {token.Value2}\n";
+                    if (symboltable[token.Value].Value != token.Value2)
+                    {
+                        // Opdater uden at ændre datatypen, da floats godt må indeholde ints
+                        symboltable[token.Value].Value = token.Value2;
+                        PythonString += $"{token.Value} = {token.Value2}\n";
+                    }
                 }
 
                 else if (token.Symbol == Token.Symbols.PRINT)

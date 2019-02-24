@@ -22,6 +22,7 @@ namespace Snog
             UDSKRIV $malou_vægt
             UDSKRIV $malou_udseende
 
+            // Ikke tilladt, da $malou_udseende er et HELTAL.
             REDIGER $malou_udseende = 9.5
 
             UDSKRIV $malou_udseende
@@ -199,6 +200,7 @@ namespace Snog
             return Program.Split('\n')
                 .Select(e => e.Trim())
                 .Where(e => !string.IsNullOrWhiteSpace(e))
+                .Where(e => !e.StartsWith("//"))
                 .Select(GetTokenFromLine)
                 .ToList();
         }

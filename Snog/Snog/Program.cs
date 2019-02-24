@@ -158,6 +158,7 @@ namespace Snog
                 Console.WriteLine("Der opstod en fejl:");
                 Console.WriteLine(errorMessage + "\n\n\n");
                 Console.ForegroundColor = tempColor;
+                PythonString += "\n# Interpreter crashed. Python code not complete!";
             }
             else if (!hasEnded)
             {

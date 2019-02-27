@@ -264,6 +264,7 @@ namespace Snog
         public enum Symbols
         {
             START, END, PRINT, INTEGER_SET, FLOAT_SET, INTEGER_EDIT, FLOAT_EDIT
+            // START, END, PRINT, ASSIGN, INTEGER_DECLARATION, FLOAT_DECLARATION, INTEGER_LITERAL, FLOAT_LITERAL, EDIT_DECLARATION
         }
 
         public Symbols Symbol { get; set; }
